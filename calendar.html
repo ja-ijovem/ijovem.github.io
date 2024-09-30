@@ -3,33 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data e Hora Atual</title>
+    <title>Agendamento da Classe Jovem</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
+            padding: 0;
             background-color: #f4f4f4;
         }
-        .container {
+        header {
             text-align: center;
+            background-color: #000000;
+            color: white;
+            padding: 1rem;
         }
         h1 {
+            margin: 0;
             font-size: 2.5rem;
+        }
+        .datetime {
+            margin-top: 0.5rem;
+            font-size: 1.2rem;
+        }
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+        .tab {
+            padding: 1rem;
+            cursor: pointer;
+            background-color: #1c3d2e;
+            color: white;
+            margin: 0 1rem;
+            border-radius: 5px;
+        }
+        .tab.active {
+            background-color: #1c3d2e;
+        }
+        .container {
+            display: none;
+            padding: 2rem;
+        }
+        .container.active {
+            display: flex;
+            justify-content: space-between;
+        }
+        .box {
+            width: 100%;
+            padding: 1rem;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .event {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 1rem;
             margin-bottom: 1rem;
         }
-        p {
+        .event h3 {
+            margin: 0;
             font-size: 1.5rem;
+            color: #333;
+        }
+        .event p {
+            margin: 0.5rem 0;
+            font-size: 1rem;
+            color: #666;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        form label, form input, form textarea, form select {
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+        input, textarea, select {
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        select {
+            /* Estilo para o select */
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-color: white;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 16px;
+        }
+        button {
+            padding: 0.7rem;
+            font-size: 1rem;
+            background-color: #1c3d2e;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #1c3d2e;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Data e Hora Atual</h1>
-        <p id="datetime"></p>
+    <header>
+        <h1>Agendamento da Classe Jovem</h1>
+        <div class="datetime" id="datetime"></div>
+    </header>
+
+    <!-- Menu de abas -->
+    <div class="tabs">
+        <div class="tab active" data-tab="eventsTab">Eventos Agendados</div>
+        <div class="tab" data-tab="scheduleTab">Marcar um Agendamento</div>
+    </div>
+
+    <!-- Conteúdo da aba de eventos -->
+    <div id="eventsTab" class="container active">
+        <div class="box">
+            <h2>Eventos Agendados</h2>
+            
+            <div class="event">
+                <h3>Todo Sábado - ES / Classe Jovem </h3>
+                <p>Período: Todo sábado, após o culto - 11h às 12h</p>
+                <p>Recapitulação do estudo biblico jovem</p>
+            </div>
+        <!--
+            <div class="event">
+                <h3>12 de setembro - Evangelismo / Estudo Bíblico</h3>
+                <p>Período: 12 de setembro (terça-feira) - 20h às 22h</p>
+                <p>Estudo da Bíblia com foco no Novo Testamento</p>
+            </div>
+
+            <div class="event">
+                <h3>19 de setembro - Ação Social / Moradores de Rua </h3>
+                <p>Período: 19 de setembro (sexta-feira) - 19h às 21h</p>
+                <p>Distribuição de alimentos e roupas para pessoas em situação de rua</p>
+            </div>
+
+            <div class="event">
+                <h3>26 de setembro - Jovens / Conferência Jovem </h3>
+                <p>Período: 26 de setembro (terça-feira) - 18h às 21h</p>
+                <p>Encontro anual para capacitação e comunhão dos jovens</p>
+            </div>
+            -->
+        </div>
+    </div>
+
+    <!-- Conteúdo da aba de agendamento -->
+    <div id="scheduleTab" class="container">
+        <div class="box">
+            <h2>Marcar um Agendamento</h2>
+            <form>
+                <label for="department">Departamento:</label>
+                <select id="department" name="department" required>
+                    <option value="Jovens">Jovens</option>
+                    <option value="Evangelismo">Evangelismo</option>
+                    <option value="MM">Ministério da Mulher</option>
+                    <option value="Coral">Coral e Louvor</option>
+                    <option value="ACSR">ACSR</option>
+                </select>
+
+                <label for="name">Nome do evento:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="event">Evento:</label>
+                <textarea id="event" name="event" rows="3" placeholder="Descreva brevemente o evento"></textarea>
+
+                <label for="date">Data:</label>
+                <input type="date" id="date" name="date" required>
+
+                <label for="time">Hora inicial:</label>
+                <input type="time" id="timei" name="timei" required>
+
+                <label for="time">Hora final:</label>
+                <input type="time" id="timef" name="timef" required>
+
+                <label for="duvida">Dúvida?</label>
+                <input type="text" id="duvida" name="duvida">
+
+
+                <button type="submit">Enviar Agendamento</button>
+            </form>
+        </div>
     </div>
 
     <script>
@@ -40,9 +201,46 @@
             document.getElementById('datetime').textContent = formattedDateTime;
         }
 
-        setInterval(updateDateTime, 1000); // Atualiza a cada segundo
-        updateDateTime(); // Mostra imediatamente a data e hora ao carregar a página
+        // Alternar entre abas
+        const tabs = document.querySelectorAll('.tab');
+        const containers = document.querySelectorAll('.container');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove classe 'active' de todas as abas e conteiners
+                tabs.forEach(t => t.classList.remove('active'));
+                containers.forEach(container => container.classList.remove('active'));
+
+                // Adiciona classe 'active' à aba e container selecionado
+                tab.classList.add('active');
+                const activeTab = tab.getAttribute('data-tab');
+                document.getElementById(activeTab).classList.add('active');
+            });
+        });
+
+        // Ação para enviar dados pelo WhatsApp
+        document.getElementById('scheduleForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const department = document.getElementById('department').value;
+            const name = document.getElementById('name').value;
+            const eventDescription = document.getElementById('event').value;
+            const date = document.getElementById('date').value;
+            const timei = document.getElementById('timei').value;
+            const timef = document.getElementById('timef').value;
+            const duvida = document.getElementById('duvida').value;
+
+            const message = `Agendamento solicitado:\nDepartamento: ${department}\nNome do Evento: ${name}\nDescrição: ${eventDescription}\nData: ${date}\nHora Inicial: ${timei}\nHora Final: ${timef}\nDúvida: ${duvida || "Nenhuma"}`;
+
+            // Substitua o número de telefone pelo destino no formato internacional, exemplo: 5511999999999
+            const phoneNumber = "5551995474574"; // Coloque o número correto aqui
+            const whatsappURL = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
+
+            // Redireciona o usuário para o WhatsApp com a mensagem formatada
+            window.open(whatsappURL, '_blank');
+        });
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
     </script>
 </body>
 </html>
-
