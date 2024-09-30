@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data e Hora Atual</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            text-align: center;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        p {
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Data e Hora Atual</h1>
+        <p id="datetime"></p>
+    </div>
+
+    <script>
+        function updateDateTime() {
+            const now = new Date();
+            const options = { dateStyle: 'full', timeStyle: 'medium' };
+            const formattedDateTime = new Intl.DateTimeFormat('pt-BR', options).format(now);
+            document.getElementById('datetime').textContent = formattedDateTime;
+        }
+
+        setInterval(updateDateTime, 1000); // Atualiza a cada segundo
+        updateDateTime(); // Mostra imediatamente a data e hora ao carregar a página
+    </script>
+</body>
+</html>
+
