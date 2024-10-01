@@ -230,11 +230,12 @@
             const timef = document.getElementById('timef').value;
             const duvida = document.getElementById('duvida').value;
 
-            const message = `Agendamento solicitado:\nDepartamento: ${department}\nNome do Evento: ${name}\nDescrição: ${eventDescription}\nData: ${date}\nHora Inicial: ${timei}\nHora Final: ${timef}\nDúvida: ${duvida || "Nenhuma"}`;
+            // const message = `Agendamento solicitado:\nDepartamento: ${department}\nNome do Evento: ${name}\nDescrição: ${eventDescription}\nData: ${date}\nHora Inicial: ${timei}\nHora Final: ${timef}\nDúvida: ${duvida || "Nenhuma"}`;
+            const message = `testepagge`;
 
             // Substitua o número de telefone pelo destino no formato internacional, exemplo: 5511999999999
             const phoneNumber = "5551995474574"; // Coloque o número correto aqui
-            const whatsappURL = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
+            const whatsappURL = `https://wa.me/${phoneNumber}/?text=${encodeURIComponent(message)}`;
 
             // Redireciona o usuário para o WhatsApp com a mensagem formatada
             window.open(whatsappURL, '_blank');
