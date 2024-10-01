@@ -119,43 +119,55 @@
 
     <!-- Menu de abas -->
     <div class="tabs">
+        <!-- 
         <div class="tab active" data-tab="eventsTab">Eventos Agendados</div>
+        -->
         <div class="tab" data-tab="scheduleTab">Marcar um Agendamento</div>
     </div>
 
     <!-- Conteúdo da aba de eventos -->
     <div id="eventsTab" class="container active">
         <div class="box">
-            <h2>Eventos Agendados</h2>
+            <h2>Eventos Recorrentes</h2>
             
             <div class="event">
                 <h3>Todo Sábado - ES / Classe Jovem </h3>
                 <p>Período: Todo sábado, após o culto - 11h às 12h</p>
                 <p>Recapitulação do estudo biblico jovem</p>
             </div>
-        <!--
+
+            <!--
             <div class="event">
-                <h3>12 de setembro - Evangelismo / Estudo Bíblico</h3>
-                <p>Período: 12 de setembro (terça-feira) - 20h às 22h</p>
-                <p>Estudo da Bíblia com foco no Novo Testamento</p>
+                <h3>Todo Sábado - ES / Classe Jovem </h3>
+                <p>Período: Todo sábado, após o culto - 11h às 12h</p>
+                <p>Recapitulação do estudo biblico jovem</p>
             </div>
 
-            <div class="event">
-                <h3>19 de setembro - Ação Social / Moradores de Rua </h3>
-                <p>Período: 19 de setembro (sexta-feira) - 19h às 21h</p>
-                <p>Distribuição de alimentos e roupas para pessoas em situação de rua</p>
-            </div>
 
             <div class="event">
                 <h3>26 de setembro - Jovens / Conferência Jovem </h3>
                 <p>Período: 26 de setembro (terça-feira) - 18h às 21h</p>
                 <p>Encontro anual para capacitação e comunhão dos jovens</p>
             </div>
+
             -->
-        </div>
+            <h2>Eventos Outubro</h2>
+
+            <div class="event">
+                <h3>19 de out. - MDA / Aventureiro </h3><p>Período: 19 de outubro (sábado) - 15:00 às 17:30</p><p>Encontro clube aventureiros  </p>            </div>            
+
+            <h2>Eventos Novembro</h2>
+            <div class="event">
+                <h3>23 de nov. - Ministério da Mulher </h3><p>Período: 23 de novembro (sábado) - 12:30 às 18:00</p><p>Reunião </p>            </div>            
+
+            <h2>Eventos Dezembro</h2>
+            <div class="event">
+                <p> não há agendamentos ainda </p>            
+            </div>            
+
     </div>
 
-    <!-- Conteúdo da aba de agendamento -->
+    <!-- Conteúdo da aba de agendamento 
     <div id="scheduleTab" class="container">
         <div class="box">
             <h2>Marcar um Agendamento</h2>
@@ -192,7 +204,8 @@
             </form>
         </div>
     </div>
-
+    -->
+    
     <script>
         function updateDateTime() {
             const now = new Date();
@@ -201,6 +214,8 @@
             document.getElementById('datetime').textContent = formattedDateTime;
         }
 
+        
+        /*
         // Alternar entre abas
         const tabs = document.querySelectorAll('.tab');
         const containers = document.querySelectorAll('.container');
@@ -217,11 +232,13 @@
                 document.getElementById(activeTab).classList.add('active');
             });
         });
-
+        */
+       
         // Ação para enviar dados pelo WhatsApp
         document.getElementById('scheduleForm').addEventListener('submit', function(event) {
             event.preventDefault();
 
+            /*
             const department = document.getElementById('department').value;
             const name = document.getElementById('name').value;
             const eventDescription = document.getElementById('event').value;
@@ -239,10 +256,16 @@
             const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
             // Redireciona o usuário para o WhatsApp com a mensagem formatada
-            window.open(whatsappURL, '_blank');
+            const URL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            */
+
+            const URL = "https://www.google.com";
+
+           window.open(URL, '_self');
 
         });
         setInterval(updateDateTime, 1000);
+
         updateDateTime();
     </script>
 </body>
