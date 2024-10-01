@@ -39,14 +39,15 @@
             border-radius: 5px;
         }
         .tab.active {
-            background-color: #145f48;
+            background-color: #1c3d2e;
         }
         .container {
             display: none;
             padding: 2rem;
         }
         .container.active {
-            display: block;
+            display: flex;
+            justify-content: space-between;
         }
         .box {
             width: 100%;
@@ -86,7 +87,10 @@
             font-size: 1rem;
         }
         select {
+            /* Estilo para o select */
             appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
             background-color: white;
             background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>');
             background-repeat: no-repeat;
@@ -103,7 +107,7 @@
             cursor: pointer;
         }
         button:hover {
-            background-color: #145f48;
+            background-color: #1c3d2e;
         }
     </style>
 </head>
@@ -115,7 +119,9 @@
 
     <!-- Menu de abas -->
     <div class="tabs">
+        <!-- 
         <div class="tab active" data-tab="eventsTab">Eventos Agendados</div>
+        -->
         <div class="tab" data-tab="scheduleTab">Marcar um Agendamento</div>
     </div>
 
@@ -123,35 +129,49 @@
     <div id="eventsTab" class="container active">
         <div class="box">
             <h2>Eventos Recorrentes</h2>
+            
             <div class="event">
                 <h3>Todo Sábado - ES / Classe Jovem </h3>
                 <p>Período: Todo sábado, após o culto - 11h às 12h</p>
-                <p>Recapitulação do estudo bíblico jovem</p>
+                <p>Recapitulação do estudo biblico jovem</p>
             </div>
-            <h2>Eventos Outubro</h2>
+
+            <!--
             <div class="event">
-                <h3>19 de out. - MDA / Aventureiro </h3>
-                <p>Período: 19 de outubro (sábado) - 15:00 às 17:30</p>
-                <p>Encontro clube aventureiros</p>
+                <h3>Todo Sábado - ES / Classe Jovem </h3>
+                <p>Período: Todo sábado, após o culto - 11h às 12h</p>
+                <p>Recapitulação do estudo biblico jovem</p>
             </div>
+
+
+            <div class="event">
+                <h3>26 de setembro - Jovens / Conferência Jovem </h3>
+                <p>Período: 26 de setembro (terça-feira) - 18h às 21h</p>
+                <p>Encontro anual para capacitação e comunhão dos jovens</p>
+            </div>
+
+            -->
+            <h2>Eventos Outubro</h2>
+
+            <div class="event">
+                <h3>19 de out. - MDA / Aventureiro </h3><p>Período: 19 de outubro (sábado) - 15:00 às 17:30</p><p>Encontro clube aventureiros  </p>            </div>            
+
             <h2>Eventos Novembro</h2>
             <div class="event">
-                <h3>23 de nov. - Ministério da Mulher </h3>
-                <p>Período: 23 de novembro (sábado) - 12:30 às 18:00</p>
-                <p>Reunião</p>
-            </div>
+                <h3>23 de nov. - Ministério da Mulher </h3><p>Período: 23 de novembro (sábado) - 12:30 às 18:00</p><p>Reunião </p>            </div>            
+
             <h2>Eventos Dezembro</h2>
             <div class="event">
-                <p>não há agendamentos ainda</p>
-            </div>
-        </div>
+                <p> não há agendamentos ainda </p>            
+            </div>            
+
     </div>
 
-    <!-- Conteúdo da aba de agendamento -->
+    <!-- Conteúdo da aba de agendamento 
     <div id="scheduleTab" class="container">
         <div class="box">
             <h2>Marcar um Agendamento</h2>
-            <form onsubmit="event.preventDefault(); open_schedule_url();">
+            <form>
                 <label for="department">Departamento:</label>
                 <select id="department" name="department" required>
                     <option value="Jovens">Jovens</option>
@@ -170,20 +190,22 @@
                 <label for="date">Data:</label>
                 <input type="date" id="date" name="date" required>
 
-                <label for="timei">Hora inicial:</label>
+                <label for="time">Hora inicial:</label>
                 <input type="time" id="timei" name="timei" required>
 
-                <label for="timef">Hora final:</label>
+                <label for="time">Hora final:</label>
                 <input type="time" id="timef" name="timef" required>
 
                 <label for="duvida">Dúvida?</label>
                 <input type="text" id="duvida" name="duvida">
 
-                <button type="submit">Marcar um Agendamento</button>
+
+                <button type="submit">Enviar Agendamento</button>
             </form>
         </div>
     </div>
-
+    -->
+    
     <script>
         function updateDateTime() {
             const now = new Date();
@@ -192,24 +214,31 @@
             document.getElementById('datetime').textContent = formattedDateTime;
         }
 
+        
+        /*
         // Alternar entre abas
         const tabs = document.querySelectorAll('.tab');
         const containers = document.querySelectorAll('.container');
 
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
+                // Remove classe 'active' de todas as abas e conteiners
                 tabs.forEach(t => t.classList.remove('active'));
                 containers.forEach(container => container.classList.remove('active'));
 
+                // Adiciona classe 'active' à aba e container selecionado
                 tab.classList.add('active');
                 const activeTab = tab.getAttribute('data-tab');
                 document.getElementById(activeTab).classList.add('active');
             });
         });
+        */
+       
+        // Ação para enviar dados pelo WhatsApp
+        document.getElementById('scheduleForm').addEventListener('submit', function(event) {
+            event.preventDefault();
 
-        function open_schedule_url() {
-            const phoneNumber = "5551995474574";
-
+            /*
             const department = document.getElementById('department').value;
             const name = document.getElementById('name').value;
             const eventDescription = document.getElementById('event').value;
@@ -218,13 +247,25 @@
             const timef = document.getElementById('timef').value;
             const duvida = document.getElementById('duvida').value;
 
-            const message = `Oi, quero agendar um horário na sala. \n ------- \n Agendamento solicitado:\nDepartamento: ${department}\nNome do Evento: ${name}\nDescrição: ${eventDescription}\nData: ${date}\nHora Inicial: ${timei}\nHora Final: ${timef}\nDúvida: ${duvida || "Nenhuma"}`;
+            // const message = `Agendamento solicitado:\nDepartamento: ${department}\nNome do Evento: ${name}\nDescrição: ${eventDescription}\nData: ${date}\nHora Inicial: ${timei}\nHora Final: ${timef}\nDúvida: ${duvida || "Nenhuma"}`;
+             // Teste para envio
+             const message = `Agendamento solicitado:\nDepartamento: ${department}\nNome do Evento: ${name}\nDescrição: ${eventDescription}\nData: ${date}\nHora Inicial: ${timei}\nHora Final: ${timef}\nDúvida: ${duvida || "Nenhuma"}`;
 
+            // Substitua o número de telefone pelo destino no formato internacional, exemplo: 5551995474574
+            const phoneNumber = "5551995474574"; // Coloque o número correto aqui
+            const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+            // Redireciona o usuário para o WhatsApp com a mensagem formatada
             const URL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-            window.open(URL, '_blank');
-        }
+            */
 
+            const URL = "https://www.google.com";
+
+           window.open(URL, '_self');
+
+        });
         setInterval(updateDateTime, 1000);
+
         updateDateTime();
     </script>
 </body>
