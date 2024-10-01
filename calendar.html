@@ -11,25 +11,31 @@
             padding: 0;
             background-color: #f4f4f4;
         }
+
         header {
             text-align: center;
             background-color: #000000;
             color: white;
             padding: 1rem;
         }
+
         h1 {
             margin: 0;
             font-size: 2.5rem;
         }
+
         .datetime {
             margin-top: 0.5rem;
             font-size: 1.2rem;
         }
+
         .tabs {
             display: flex;
             justify-content: center;
             margin-top: 1rem;
+            background-color: #f1f1f1;
         }
+
         .tab {
             padding: 1rem;
             cursor: pointer;
@@ -38,16 +44,30 @@
             margin: 0 1rem;
             border-radius: 5px;
         }
+
         .tab.active {
             background-color: #145f48;
         }
+
+        .tab a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .location-icon {
+            margin-right: 5px;
+            font-size: 16px;
+        }
+
         .container {
             display: none;
             padding: 2rem;
         }
+
         .container.active {
             display: block;
         }
+
         .box {
             width: 100%;
             padding: 1rem;
@@ -55,36 +75,43 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
         }
+
         .event {
             border: 1px solid #ccc;
             border-radius: 8px;
             padding: 1rem;
             margin-bottom: 1rem;
         }
+
         .event h3 {
             margin: 0;
             font-size: 1.5rem;
             color: #333;
         }
+
         .event p {
             margin: 0.5rem 0;
             font-size: 1rem;
             color: #666;
         }
+
         form {
             display: flex;
             flex-direction: column;
         }
+
         form label, form input, form textarea, form select {
             margin-bottom: 1rem;
             font-size: 1rem;
         }
+
         input, textarea, select {
             padding: 0.5rem;
             border: 1px solid #ccc;
             border-radius: 4px;
             font-size: 1rem;
         }
+
         select {
             appearance: none;
             background-color: white;
@@ -93,6 +120,7 @@
             background-position: right 10px center;
             background-size: 16px;
         }
+
         button {
             padding: 0.7rem;
             font-size: 1rem;
@@ -102,21 +130,30 @@
             border-radius: 4px;
             cursor: pointer;
         }
+
         button:hover {
             background-color: #145f48;
         }
+
+        iframe {
+            width: 100%;
+            height: 400px;
+            border: 0;
+        }
+
     </style>
 </head>
 <body>
     <header>
-        <h1>Agendamento da Classe Jovem</h1>
+        <h1>Agenda da Classe Jovem</h1>
         <div class="datetime" id="datetime"></div>
     </header>
 
-    <!-- Menu de abas -->
     <div class="tabs">
-        <div class="tab active" data-tab="eventsTab">Eventos Agendados</div>
-        <div class="tab" data-tab="scheduleTab">Marcar um Agendamento</div>
+        <div class="tab active" data-tab="eventsTab">Agenda</div>
+        <div class="tab" data-tab="scheduleTab">Agendar evento</div> 
+        <div class="tab" data-tab="contactTab">Entrar em contato</div> 
+        <div class="tab" data-tab="locationTab">Localização</div>
     </div>
 
     <!-- Conteúdo da aba de eventos -->
@@ -163,36 +200,43 @@
         <div class="box">
             <h2>Marcar um Agendamento</h2>
             <form onsubmit="event.preventDefault(); open_schedule_url();">
-                <label for="department">Departamento:</label>
-                <select id="department" name="department" required>
-                    <option value="ACSR">ACSR</option>
-                    <option value="Adolescentes">Adolescentes</option>
-                    <option value="Coral">Coral & Louvor</option>
-                    <option value="ECC">ECC</option>
-                    <option value="ES">Escola Sabatina</option>
-                    <option value="MDA / DBR">Desbravadores</option>
-                    <option value="MDA / AVT">Aventureiros</option>
-                    <option value="Jovens">Jovens</option>
-                    <option value="Evangelismo">Evangelismo</option>
-                    <option value="MM">Ministério da Mulher</option>
-                    <option value="NATI">Núcleo Adventista da Terceira Idade</option>
-                    <option value="MH">Ministério do Homem</option>
-                </select>
 
-                <label for="name">Nome do evento:</label>
-                <input type="text" id="name" name="name" required>
+                <label>
+                    <label for="department">Departamento:</label>
+                    <select id="department" name="department" required>
+                        <option value="ACSR">ACSR</option>
+                        <option value="Adolescentes">Adolescentes</option>
+                        <option value="Coral">Coral & Louvor</option>
+                        <option value="ECC">ECC</option>
+                        <option value="ES">Escola Sabatina</option>
+                        <option value="MDA / DBR">Desbravadores</option>
+                        <option value="MDA / AVT">Aventureiros</option>
+                        <option value="Jovens">Jovens</option>
+                        <option value="Evangelismo">Evangelismo</option>
+                        <option value="MM">Ministério da Mulher</option>
+                        <option value="NATI">Núcleo Adventista da Terceira Idade</option>
+                        <option value="MH">Ministério do Homem</option>
+                    </select>
 
+                    <label for="name">Nome do evento:</label>
+                    <input type="text" id="name" name="name" required>
+    
+                </label>
+    
                 <label for="event">Evento:</label>
                 <textarea id="event" name="event" rows="3" placeholder="Descreva brevemente o evento"></textarea>
+     
+                <label >
+                    <label for="date">Data:</label>
+                    <input type="date" id="date" name="date" required>
 
-                <label for="date">Data:</label>
-                <input type="date" id="date" name="date" required>
-
-                <label for="timei">Hora inicial:</label>
-                <input type="time" id="timei" name="timei" required>
-
-                <label for="timef">Hora final:</label>
-                <input type="time" id="timef" name="timef" required>
+                    <label for="timei">Hora inicial:</label>
+                    <input type="time" id="timei" name="timei" required>
+    
+                    <label for="timef">Hora final:</label>
+                    <input type="time" id="timef" name="timef" required>
+    
+                </label>
 
                 <label for="duvida">Dúvida?</label>
                 <input type="text" id="duvida" name="duvida">
@@ -202,30 +246,31 @@
         </div>
     </div>
 
+    <!-- Conteúdo da aba de contato -->
+    <div id="contactTab" class="container">
+        <div class="box">
+            <h2>Entre em Contato</h2>
+            <button onclick="open_contact_url()">Enviar mensagem via WhatsApp</button>
+        </div>
+    </div>
+
+    <!-- Conteúdo da aba de localização -->
+    <div id="locationTab" class="container">
+        <div class="box">
+            <h2>Localização</h2>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3454.684921086907!2d-51.1634751!3d-30.017202299999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95197776758f50d9%3A0x2b8ed88059845ec3!2sR.%20Roque%20Calage%2C%20593%20-%20Passo%20d&#39;Areia%2C%20Porto%20Alegre%20-%20RS%2C%2091350-090!5e0!3m2!1spt-BR!2sbr!4v1727748914400!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+
     <script>
-        function updateDateTime() {
+         function updateDateTime() {
             const now = new Date();
             const options = { dateStyle: 'full', timeStyle: 'medium' };
             const formattedDateTime = new Intl.DateTimeFormat('pt-BR', options).format(now);
             document.getElementById('datetime').textContent = formattedDateTime;
         }
 
-        // Alternar entre abas
-        const tabs = document.querySelectorAll('.tab');
-        const containers = document.querySelectorAll('.container');
-
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                tabs.forEach(t => t.classList.remove('active'));
-                containers.forEach(container => container.classList.remove('active'));
-
-                tab.classList.add('active');
-                const activeTab = tab.getAttribute('data-tab');
-                document.getElementById(activeTab).classList.add('active');
-            });
-        });
-
-        function open_schedule_url() {
+         function open_schedule_url() {
             const phoneNumber = "5551995474574";
 
             const department = document.getElementById('department').value;
@@ -241,9 +286,35 @@
             const URL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
             window.open(URL, '_blank');
         }
+ 
+        function open_contact_url() {
+            const message = `Oi, quero entrar em contato referente ao agendamento da sala jovem`;
+            
+            const phoneNumber = `5521976455471`;
+            const URL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;     
+
+            window.location.href = URL;
+        }
+
+        // Alternar entre abas
+        const tabs = document.querySelectorAll('.tab');
+        const containers = document.querySelectorAll('.container');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const target = tab.getAttribute('data-tab');
+
+                tabs.forEach(t => t.classList.remove('active'));
+                containers.forEach(c => c.classList.remove('active'));
+
+                tab.classList.add('active');
+                document.getElementById(target).classList.add('active');
+            });
+        });
 
         setInterval(updateDateTime, 1000);
         updateDateTime();
+
     </script>
 </body>
 </html>
