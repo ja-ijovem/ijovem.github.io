@@ -236,7 +236,7 @@
             const timef = document.getElementById('timef').value;
             const duvida = document.getElementById('duvida').value;
 
-            const message = `Oi, quero agendar um horário na sala. \n ------- \n Agendamento solicitado:\nDepartamento: ${department}\nNome do Evento: ${name}\nDescrição: ${eventDescription}\nData: ${date}\nHora Inicial: ${timei}\nHora Final: ${timef}\nDúvida: ${duvida || "Nenhuma"}`;
+            const message = `Oi, quero agendar um horário na sala. \n ---------------------------- \n\nDepartamento: ${department}\nNome do Evento: ${name}\nDescrição: ${eventDescription}\nData: ${date}\nHora Inicial: ${timei}\nHora Final: ${timef}\nDúvida: ${duvida || "Nenhuma"}`;
 
             const URL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
             window.open(URL, '_blank');
