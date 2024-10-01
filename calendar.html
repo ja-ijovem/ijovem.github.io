@@ -128,12 +128,23 @@
                 <p>Período: Todo sábado, após o culto - 11h às 12h</p>
                 <p>Recapitulação do estudo bíblico jovem</p>
             </div>
+
             <h2>Eventos Outubro</h2>
+
+            <div class="event">
+                <h3>6 de out. - MDA / Aventureiro </h3><p>Reunião clube aventureiros  </p>
+            </div>        
+
             <div class="event">
                 <h3>19 de out. - MDA / Aventureiro </h3>
                 <p>Período: 19 de outubro (sábado) - 15:00 às 17:30</p>
                 <p>Encontro clube aventureiros</p>
             </div>
+
+            <div class="event">
+                <h3>26 de out. - ECC </h3><p>Período: 26 de outubro (sábado) - 16:00 às 18:00</p><p>Reunião regular do ECC </p>
+            </div>
+
             <h2>Eventos Novembro</h2>
             <div class="event">
                 <h3>23 de nov. - Ministério da Mulher </h3>
@@ -142,7 +153,7 @@
             </div>
             <h2>Eventos Dezembro</h2>
             <div class="event">
-                <p>não há agendamentos ainda</p>
+                <p>Não há agendamentos ainda</p>
             </div>
         </div>
     </div>
@@ -154,11 +165,18 @@
             <form onsubmit="event.preventDefault(); open_schedule_url();">
                 <label for="department">Departamento:</label>
                 <select id="department" name="department" required>
+                    <option value="ACSR">ACSR</option>
+                    <option value="Adolescentes">Adolescentes</option>
+                    <option value="Coral">Coral & Louvor</option>
+                    <option value="ECC">ECC</option>
+                    <option value="ES">Escola Sabatina</option>
+                    <option value="MDA / DBR">Desbravadores</option>
+                    <option value="MDA / AVT">Aventureiros</option>
                     <option value="Jovens">Jovens</option>
                     <option value="Evangelismo">Evangelismo</option>
                     <option value="MM">Ministério da Mulher</option>
-                    <option value="Coral">Coral e Louvor</option>
-                    <option value="ACSR">ACSR</option>
+                    <option value="NATI">Núcleo Adventista da Terceira Idade</option>
+                    <option value="MH">Ministério do Homem</option>
                 </select>
 
                 <label for="name">Nome do evento:</label>
