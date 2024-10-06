@@ -85,17 +85,17 @@
     
                 </label>
     
-                <label for="event">Evento:</label>
+                <label for="event">Descrição do evento:</label>
                 <textarea id="event" name="event" rows="3" placeholder="Descreva brevemente o evento"></textarea>
      
                 <label >
-                    <label for="date">Data:</label>
+                    <label for="date">Data do Evento:</label>
                     <input type="date" id="date" name="date" required>
 
-                    <label for="timei">Hora inicial:</label>
+                    <label for="timei">Hora Inicial:</label>
                     <input type="time" id="timei" name="timei" required>
     
-                    <label for="timef">Hora final:</label>
+                    <label for="timef">Hora Final:</label>
                     <input type="time" id="timef" name="timef" required>
     
                 </label>
@@ -150,7 +150,7 @@
         }
  
         function open_contact_url() {
-            const message = `Oi, quero entrar em contato referente ao agendamento da sala jovem`;
+            const message = `Oi! Gostaria de informações para agendar a sala dos jovem.`;
             
             const phoneNumber = `5551995474574`;
             const URL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;     
