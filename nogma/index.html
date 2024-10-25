@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nogma - Criptografia</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+    <header>
+        <h1>Brincando de Criptografia</h1>
+        <div class="datetime" id="datetime"></div>
+    </header>
+
+    <div class="tabs">
+        <div class="tab active" data-tab="eventsTab">Descriptografar</div>
+        <div class="tab" data-tab="scheduleTab">Criptografar</div> 
+      <!--  <div class="tab" data-tab="contactTab">Entrar em contato</div> -->
+    <!--    <div class="tab" data-tab="locationTab">Localização</div> -->
+    </div>
+
+    <!-- Conteúdo da aba de agendamento -->
+    <div id="eventsTab" class="container">
+        <div class="box">
+            <h2>Descriptografar</h2>
+            <form onsubmit="event.preventDefault(); open_desc_url();">
+
+                <label>
+
+                    <label for="name">Inserir o valor secreto para descobrir: </label>
+                    <input type="text" id="name" name="name" required>
+    
+                </label>
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+        <div class="box">
+            <h4>Segredo:</h4>
+            <p><div class="decryp" id="decryp"></div></p>
+        </div>
+
+    </div>
+
+    <!-- Conteúdo da aba de agendamento -->
+    <div id="scheduleTab" class="container">
+        <div class="box">
+            <h2>Criptografar</h2>
+            <form onsubmit="event.preventDefault(); open_cripto_url();">
+
+                <label>
+
+                    <label for="name">Inserir valor </label>
+                    <input type="text" id="name" name="name" required>
+    
+               </label>
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+        <div class="box">
+            <h4>Segredo:</h4>
+            <p><div class="crypt" id="crypt"></div></p>
+        </div>
+
+    </div>
+
+    <script>
+         function updateDateTime() {
+            const now = new Date();
+            const options = { dateStyle: 'full', timeStyle: 'medium' };
+            const formattedDateTime = new Intl.DateTimeFormat('pt-BR', options).format(now);
+            document.getElementById('datetime').textContent = formattedDateTime;
+        }
+
+         function open_desc_url() {
+            const name = document.getElementById('name').value;
+
+            document.getElementById('decryp').textContent = name;
+        }
+ 
+        function open_cripto_url() {
+            const name = document.getElementById('name').value;
+
+            document.getElementById('crypt').textContent = name;
+
+        }
+
+        // Alternar entre abas
+        const tabs = document.querySelectorAll('.tab');
+        const containers = document.querySelectorAll('.container');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const target = tab.getAttribute('data-tab');
+
+                tabs.forEach(t => t.classList.remove('active'));
+                containers.forEach(c => c.classList.remove('active'));
+
+                tab.classList.add('active');
+                document.getElementById(target).classList.add('active');
+            });
+        });
+
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
+
+    </script>
+</body>
+</html>
