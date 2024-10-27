@@ -42,6 +42,14 @@
             color: #28a745;
             border-bottom: 2px solid #28a745;
         }
+
+        p.result {
+            text-align: center;
+            font-size: 16px;
+            color: #28a745;
+            margin-top: 20px;
+        }
+
         .section {
             display: none;
         }
@@ -97,19 +105,22 @@
         <div id="compararOpcoesTab" class="section active">
             <div class="input-group">
                 <h2 id="tituloOp1">Opção 1</h2>
-                <label>Valor (R$):</label>
-                <input type="number" id="valor1" placeholder="Digite o valor">
                 <label>Quantidade:</label>
                 <input type="number" id="quantidade1" placeholder="Digite a quantidade">
+                <label>Valor (R$):</label>
+                <input type="number" id="valor1" placeholder="Digite o valor">
+          
             </div>
             <div class="input-group">
                 <h2 id="tituloOp2">Opção 2</h2>
-                <label>Valor (R$):</label>
-                <input type="number" id="valor2" placeholder="Digite o valor">
                 <label>Quantidade:</label>
                 <input type="number" id="quantidade2" placeholder="Digite a quantidade">
+                <label>Valor (R$):</label>
+                <input type="number" id="valor2" placeholder="Digite o valor">
+ 
             </div>
             <button onclick="compararOpcoes()">Comparar Opções</button>
+            <p class="result" id="resultadoOpcao"></p>
         </div>
 
         <!-- Seção Calcular Valor por Peso -->
@@ -178,13 +189,19 @@
             const tituloOp1 = document.getElementById('tituloOp1');
             const tituloOp2 = document.getElementById('tituloOp2');
 
+            const valorTotal = valor1 + valor2;
+
             if (precoPorOvo1 < precoPorOvo2) {
                 tituloOp1.innerText = 'Opção 1 - Mais barata';
                 tituloOp2.innerText = 'Opção 2';
+                valorTotal = valor1*quantidade1;
             } else {
                 tituloOp1.innerText = 'Opção 1';
                 tituloOp2.innerText = 'Opção 2 - Mais barata';
+                valorTotal = valor2*quantidade2;
             }
+
+            document.getElementById('resultadoOpcao').innerText = `Valor: R$ ${valorTotal.toFixed(2)}`;
         }
 
         // Função para calcular o valor por peso
