@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Ponto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        button, input[type="time"] {
+            margin: 5px;
+            padding: 10px 20px;
+        }
+        table {
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+        #totalHours {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #4CAF50;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Controle de Ponto</h1>
+    <div>
+        <label for="manualStart">Hora de Início:</label>
+        <input type="time" id="manualStart">
+        <button id="startDayButton">Iniciar Dia</button>
+    </div>
+    <div>
+        <label for="intervalTime">Hora de Saída para Intervalo:</label>
+        <input type="time" id="intervalTime">
+        <button id="intervalButton">Registrar Intervalo</button>
+    </div>
+    <div>
+        <label for="lunchTime">Hora de Saída para Almoço:</label>
+        <input type="time" id="lunchTime">
+        <button id="lunchButton">Registrar Almoço</button>
+    </div>
+    <div id="totalHours">Total de Horas Trabalhadas: 0h 0m</div>
+    <table>
+        <thead>
+            <tr>
+                <th>Evento</th>
+                <th>Horário</th>
+            </tr>
+        </thead>
+        <tbody id="output"></tbody>
+    </table>
+
+    <script>
+        let startTime = null;
+        let endTime = null;
+        let intervalRegistered = false;
+        let lunchRegistered = false;
+
+        const workDuration = 6 * 60 * 60 * 1000; // 6 hours in milliseconds
+        const intervalDuration = 15 * 60 * 1000; // 15 minutes in milliseconds
+        const lunchDuration = 60 * 60 * 1000; // 1 hour in milliseconds
+        const output = document.getElementById('output');
+        const totalHoursDisplay = document.getElementById('totalHours');
+
+        const buttons = {
+            start: document.getElementById('startDayButton'),
+            interval: document.getElementById('intervalButton'),
+            lunch: document.getElementById('lunchButton'),
+        };
+
+        buttons.start.addEventListener('click', () => {
+            const manualStart = document.getElementById('manualStart').value;
+            if (manualStart) {
+                startTime = parseManualTime(manualStart);
+            } else if (!startTime) {
+                startTime = new Date();
+            }
+            logEvent('Início do Dia', startTime);
+            calculateEndTime();
+            buttons.start.disabled = true;
+        });
+
+        buttons.interval.addEventListener('click', () => {
+            if (!startTime) {
+                return alert('Por favor, inicie o dia primeiro.');
+            }
+            if (lunchRegistered) {
+                return alert('Não é possível registrar intervalo e almoço no mesmo dia.');
+            }
+            const intervalStart = getManualTime('intervalTime');
+            if (!intervalStart) return;
+
+            intervalRegistered = true;
+            logEvent('Saída para Intervalo', intervalStart);
+
+            const intervalEnd = new Date(intervalStart.getTime() + intervalDuration);
+            logEvent('Retorno do Intervalo (Previsto)', intervalEnd);
+
+            buttons.interval.disabled = true;
+            calculateEndTime(intervalDuration);
+        });
+
+        buttons.lunch.addEventListener('click', () => {
+            if (!startTime) {
+                return alert('Por favor, inicie o dia primeiro.');
+            }
+            if (intervalRegistered) {
+                return alert('Não é possível registrar intervalo e almoço no mesmo dia.');
+            }
+            const lunchStart = getManualTime('lunchTime');
+            if (!lunchStart) return;
+
+            if (lunchStart.getHours() >= 13) {
+                return alert('O almoço deve ser registrado antes das 13:00.');
+            }
+
+            lunchRegistered = true;
+            logEvent('Início do Almoço', lunchStart);
+
+            const lunchEnd = new Date(lunchStart.getTime() + lunchDuration);
+            logEvent('Fim do Almoço (Previsto)', lunchEnd);
+
+            buttons.lunch.disabled = true;
+            calculateEndTime(lunchDuration);
+        });
+
+        function calculateEndTime(extraTime = 0) {
+            if (!startTime) return;
+
+            const expectedEndTime = new Date(startTime.getTime() + workDuration + extraTime);
+            endTime = expectedEndTime;
+
+            // Remove any existing "Hora de Saída Esperada"
+            removeEventFromTable('Hora de Saída Esperada');
+            logEvent('Hora de Saída Esperada', expectedEndTime, true);
+            updateTotalHours();
+        }
+
+        function updateTotalHours() {
+            if (!startTime || !endTime) return;
+
+            const totalMilliseconds = endTime - startTime;
+            const hours = Math.floor(totalMilliseconds / (1000 * 60 * 60));
+            const minutes = Math.floor((totalMilliseconds % (1000 * 60 * 60)) / (1000 * 60));
+
+            totalHoursDisplay.innerText = `Total de Horas Trabalhadas: ${hours}h ${minutes}m`;
+        }
+
+        function logEvent(event, time, isUnique = false) {
+            if (isUnique) removeEventFromTable(event);
+
+            const row = document.createElement('tr');
+            row.dataset.event = event;
+            row.innerHTML = `<td>${event}</td><td>${formatTime(time)}</td>`;
+            output.appendChild(row);
+        }
+
+        function removeEventFromTable(event) {
+            const rows = Array.from(output.querySelectorAll('tr'));
+            rows.forEach(row => {
+                if (row.dataset.event === event) {
+                    row.remove();
+                }
+            });
+        }
+
+        function formatTime(time) {
+            return time.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        }
+
+        function parseManualTime(input) {
+            const [hours, minutes] = input.split(':').map(Number);
+            const now = new Date();
+            now.setHours(hours, minutes, 0, 0);
+            return now;
+        }
+
+        function getManualTime(inputId) {
+            const timeInput = document.getElementById(inputId).value;
+            if (!timeInput) {
+                alert('Por favor, informe um horário válido.');
+                return null;
+            }
+            return parseManualTime(timeInput);
+        }
+    </script>
+</body>
+</html>
