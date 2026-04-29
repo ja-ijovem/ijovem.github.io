@@ -7,6 +7,6 @@
 ## Página: [Nogma](https://jodavila.github.io/nogma/index.html)
 - Este projeto é uma ferramenta para mostrar em pratica o funcionamento de criptografia
 
-## Página: [Timer](https://jodavila.github.io/timer/index.html)
+## Página: [Timer](https://jodavila.github.io/clock/main.html)
 - Este projeto é uma ferramenta para auxilar no controle de ponto de horarios
 
